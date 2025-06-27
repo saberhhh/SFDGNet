@@ -50,8 +50,8 @@ def get_graph_feature(x, k=20, idx=None, dim9=False):
     return feature      # (batch_size, 2*num_dims, num_points, k)
 
 
-from SpConv import SPConv_1 as SPConv1
-from SpConv import SPConv_2 as SPConv2
+from SEConv import SEConv_1 as SEConv1
+from SEConv import SEConv_2 as SEConv2
 
 class DGCNN_semseg_s3dis(nn.Module):
     def __init__(self, args):
@@ -72,33 +72,33 @@ class DGCNN_semseg_s3dis(nn.Module):
         self.bn7 = nn.BatchNorm1d(512)
         self.bn8 = nn.BatchNorm1d(256)
 
-        self.conv1 = nn.Sequential(SPConv1(18,32),
+        self.conv1 = nn.Sequential(SEConv1(18,32),
                                    self.bn1,
                                    nn.LeakyReLU(negative_slope=0.2))
-        self.conv1_1 = nn.Sequential(SPConv2(32,64),
+        self.conv1_1 = nn.Sequential(SEConv2(32,64),
                                    self.bn1_1,
                                    nn.LeakyReLU(negative_slope=0.2))
-        self.conv2 = nn.Sequential(SPConv2(64,64),
+        self.conv2 = nn.Sequential(SEConv2(64,64),
                                    self.bn2,
                                    nn.LeakyReLU(negative_slope=0.2))
 
-        self.conv3 = nn.Sequential(SPConv1(18,32),
+        self.conv3 = nn.Sequential(SEConv1(18,32),
                                    self.bn3,
                                    nn.LeakyReLU(negative_slope=0.2))
-        self.conv3_1 = nn.Sequential(SPConv2(32, 64),
+        self.conv3_1 = nn.Sequential(SEConv2(32, 64),
                                      self.bn3_1,
                                      nn.LeakyReLU(negative_slope=0.2))
-        self.conv4 = nn.Sequential(SPConv2(64,64),
+        self.conv4 = nn.Sequential(SEConv2(64,64),
                                    self.bn4,
                                    nn.LeakyReLU(negative_slope=0.2))
 
-        self.conv5 = nn.Sequential(SPConv1(18,32),
+        self.conv5 = nn.Sequential(SEConv1(18,32),
                                    self.bn5,
                                    nn.LeakyReLU(negative_slope=0.2))
-        self.conv5_1 = nn.Sequential(SPConv2(32, 64),
+        self.conv5_1 = nn.Sequential(SEConv2(32, 64),
                                      self.bn5_1,
                                      nn.LeakyReLU(negative_slope=0.2))
-        self.conv5_2 = nn.Sequential(SPConv2(64,64),
+        self.conv5_2 = nn.Sequential(SEConv2(64,64),
                                      self.bn5_2,
                                      nn.LeakyReLU(negative_slope=0.2))
 
